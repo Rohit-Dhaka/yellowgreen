@@ -1,21 +1,23 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { ArrowUpRight, CalendarDays, Clock, Newspaper } from 'lucide-react'
-import { blogs } from '../data/siteData'
 
-const readTime = (b) =>
-  Math.max(1, Math.round([b.text, ...b.content].join(' ').split(/\s+/).length / 200))
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { ArrowUpRight, Newspaper } from "lucide-react";
+import { blogs } from "../data/siteData";
 
-// Image with gradient fallback if link is missing or broken
-function Cover({ src, alt, className = '' }) {
-  const [failed, setFailed] = useState(false)
+// Image with fallback
+function Cover({ src, alt, className = "" }) {
+  const [failed, setFailed] = useState(false);
+
   if (!src || failed) {
     return (
-      <div className={`flex items-center justify-center bg-gradient-to-br from-cyan-100 via-[#f3faf9] to-emerald-100 text-teal-600 ${className}`}>
-        <Newspaper size={40} strokeWidth={1.5} />
+      <div
+        className={`flex items-center justify-center bg-gradient-to-br from-[#f0f4ff] to-[#dce8ff] text-[#2864f5] ${className}`}
+      >
+        <Newspaper size={36} strokeWidth={1.4} />
       </div>
-    )
+    );
   }
+
   return (
     <img
       src={src}
@@ -24,69 +26,107 @@ function Cover({ src, alt, className = '' }) {
       onError={() => setFailed(true)}
       className={`object-cover ${className}`}
     />
-  )
+  );
 }
 
 export default function Blogs() {
-  return (
-    <section className="relative overflow-hidden bg-white py-20 lg:py-28">
-      <div className="pointer-events-none absolute -right-24 top-10 h-72 w-72 rounded-full bg-cyan-200/30 blur-3xl" />
+  const visibleBlogs = blogs?.slice(0, 3) || [];
 
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-teal-900/10 bg-[#f3faf9] px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.2em] text-teal-700">
-            <span className="h-2 w-2 rounded-full bg-gradient-to-br from-cyan-400 to-emerald-500" />
-            Blogs
-          </span>
-          <h2 className="mt-5 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
-            Latest From Our{' '}
-            <span className="bg-gradient-to-r from-cyan-500 to-emerald-500 bg-clip-text text-transparent">
-              Blog
+  return (
+    <section className="relative overflow-hidden bg-white py-16 sm:py-20 lg:py-24">
+      <div className="pointer-events-none absolute -right-32 top-0 h-80 w-80 rounded-full bg-[#dce8ff]/60 blur-3xl" />
+
+      <div className="relative mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-12">
+        {/* Section heading */}
+        <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
+          <div className="max-w-2xl">
+            <div className="mb-4 inline-flex items-center gap-2 text-xs font-medium text-[#2864f5]">
+              <span className="h-2 w-2 rounded-full bg-[#2864f5]" />
+              Our Blog
+            </div>
+
+            <h2 className="text-3xl font-semibold leading-[1.15] tracking-tight text-[#13284d] sm:text-4xl lg:text-5xl">
+              Latest Insights for Better
+              <span className="block">
+                Health and{" "}
+                <span className="bg-gradient-to-r from-[#2864f5] to-[#4f83ff] bg-clip-text text-transparent">
+                  Eye Wellness
+                </span>
+              </span>
+            </h2>
+          </div>
+
+          <Link
+            to="/blog"
+            className="group inline-flex shrink-0 items-center gap-4 rounded-full bg-[#2864f5] py-1.5 pl-5 pr-1.5 text-xs font-semibold text-white transition-all duration-300 hover:bg-[#1d4ed8] hover:shadow-lg hover:shadow-[#2864f5]/20"
+          >
+            View All Blog
+            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-[#13284d] transition-transform duration-300 group-hover:rotate-45">
+              <ArrowUpRight size={19} strokeWidth={1.8} />
             </span>
-          </h2>
+          </Link>
         </div>
 
-        <div className="mt-14 grid gap-7 md:grid-cols-3">
-          {blogs.map((b) => (
+        {/* Blog cards */}
+        <div className="mt-12 grid gap-5 sm:mt-14 md:grid-cols-2 xl:grid-cols-3 xl:gap-7">
+          {visibleBlogs.map((blog) => (
             <Link
-              key={b.slug}
-              to={`/blog/${b.slug}`}
-              className="group flex flex-col overflow-hidden rounded-3xl border border-slate-100 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-teal-600/15 hover:shadow-2xl hover:shadow-teal-900/10"
+              key={blog.slug}
+              to={`/blog/${blog.slug}`}
+              className="group flex min-w-0 flex-col rounded-2xl border border-[#dce8ff] bg-[#f0f4ff] p-3 transition-all duration-300 hover:-translate-y-1 hover:border-[#2864f5]/40 hover:shadow-xl hover:shadow-[#2864f5]/10 sm:p-3.5"
             >
-              <div className="relative h-56 overflow-hidden">
+              {/* Cover image */}
+              <div className="relative h-44 overflow-hidden rounded-xl bg-[#dce8ff] sm:h-48 lg:h-40 xl:h-44">
                 <Cover
-                  src={b.image}
-                  alt={b.title}
-                  className="h-full w-full transition-transform duration-700 group-hover:scale-110"
+                  src={blog.image}
+                  alt={blog.title}
+                  className="h-full w-full transition-transform duration-500 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent" />
-                <span className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-white/90 px-3 py-1.5 text-[11px] font-bold text-slate-800 backdrop-blur">
-                  <CalendarDays size={13} className="text-teal-600" />
-                  {b.date}
-                </span>
+
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#13284d]/10 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
               </div>
 
-              <div className="flex flex-1 flex-col p-6">
-                <p className="flex items-center gap-1.5 text-xs font-semibold text-slate-500">
-                  <Clock size={13} className="text-teal-600" />
-                  {readTime(b)} min read
-                </p>
-                <h3 className="mt-3 text-lg font-bold leading-snug text-slate-900 transition-colors group-hover:text-teal-700">
-                  {b.title}
+              {/* Card content */}
+              <div className="flex flex-1 flex-col px-0.5 pb-0.5 pt-4">
+                <h3 className="min-h-[3.5rem] text-lg font-semibold leading-snug tracking-tight text-[#13284d] transition-colors duration-300 group-hover:text-[#2864f5] sm:text-xl">
+                  {blog.title}
                 </h3>
-                <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-600">{b.text}</p>
 
-                <span className="mt-5 inline-flex items-center gap-2 border-t border-dashed border-teal-900/15 pt-4 text-sm font-semibold text-teal-700">
-                  Read More
-                  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-cyan-50 transition-all duration-300 group-hover:bg-gradient-to-br group-hover:from-cyan-400 group-hover:to-emerald-400 group-hover:text-slate-900">
-                    <ArrowUpRight size={14} />
+                <h3 className="line-clamp-3 text-sm font-medium tracking-tight text-slate-600 transition-colors duration-300 group-hover:text-[#2864f5]">
+                  {blog.content}
+                </h3>
+
+                <div className="mt-4 flex items-center justify-between gap-3">
+                  <p className="min-w-0 truncate text-xs text-slate-500">
+                    {blog.date}
+                  </p>
+
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#dce8ff] bg-white text-[#2864f5] transition-all duration-300 group-hover:border-[#2864f5] group-hover:bg-[#2864f5] group-hover:text-white">
+                    <ArrowUpRight
+                      size={20}
+                      strokeWidth={1.6}
+                      className="transition-transform duration-300 group-hover:rotate-45"
+                    />
                   </span>
-                </span>
+                </div>
               </div>
             </Link>
           ))}
         </div>
+
+        {/* Empty state */}
+        {visibleBlogs.length === 0 && (
+          <div className="mt-12 rounded-2xl border border-[#dce8ff] bg-[#f0f4ff] px-6 py-12 text-center">
+            <Newspaper
+              size={32}
+              className="mx-auto text-[#2864f5]"
+            />
+            <p className="mt-3 text-sm text-slate-600">
+              New articles are coming soon.
+            </p>
+          </div>
+        )}
       </div>
     </section>
-  )
+  );
 }

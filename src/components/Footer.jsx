@@ -1,164 +1,299 @@
-import { Link } from 'react-router-dom'
-import { Phone, Mail, MapPin, ArrowUp, ArrowUpRight } from 'lucide-react'
-import { site } from '../data/siteData'
 
-const links = [
-  { to: '/', label: 'Home' },
-  { to: '/about', label: 'About Us' },
-  { to: '/services', label: 'Services' },
-  { to: '/testimonial', label: 'Testimonial' },
-  { to: '/contact', label: 'Contact' },
-  { to: '/appointment', label: 'Get Appointment' },
-]
+import { Link } from "react-router-dom";
+import {
+  ArrowUpRight,
+  Phone,
+  Mail,
+  ArrowUp,
+  MapPin,
+  Eye,
+  Clock3,
+} from "lucide-react";
 
-function EyeLogo() {
-  return (
-    <svg viewBox="0 0 48 48" className="h-12 w-12 shrink-0" fill="none">
-      <defs>
-        <linearGradient id="foot-iris" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#22d3ee" />
-          <stop offset="1" stopColor="#10b981" />
-        </linearGradient>
-      </defs>
-      <path
-        d="M2 24C8 12 16 8 24 8s16 4 22 16c-6 12-14 16-22 16S8 36 2 24z"
-        stroke="#22d3ee"
-        strokeOpacity="0.7"
-        strokeWidth="2.5"
-        strokeLinejoin="round"
-        fill="#0b1c26"
-      />
-      <circle cx="24" cy="24" r="9.5" fill="url(#foot-iris)" />
-      <circle cx="24" cy="24" r="4.2" fill="#06121a" />
-      <circle cx="21" cy="21" r="1.8" fill="white" />
-    </svg>
-  )
-}
+import {
+  FaFacebookF,
+  FaInstagram,
+  FaYoutube,
+  FaXTwitter,
+} from "react-icons/fa6";
+
+import { site } from "../data/siteData";
+
+const navLinks = [
+  { to: "/", label: "Home" },
+  { to: "/about", label: "About Us" },
+  { to: "/services", label: "Services" },
+  { to: "/testimonial", label: "Testimonials" },
+  { to: "/contact", label: "Contact Us" },
+  { to: "/appointment", label: "Appointment" },
+];
+
+const socialLinks = [
+  {
+    label: "Facebook",
+    icon: FaFacebookF,
+    href: "https://www.facebook.com/",
+  },
+  {
+    label: "Instagram",
+    icon: FaInstagram,
+    href: "https://www.instagram.com/",
+  },
+  {
+    label: "YouTube",
+    icon: FaYoutube,
+    href: "https://www.youtube.com/",
+  },
+  {
+    label: "X",
+    icon: FaXTwitter,
+    href: "https://x.com/",
+  },
+];
 
 export default function Footer() {
-  const contacts = [
-    { icon: Phone, label: 'Call', value: site.phone, href: `tel:${site.phone}` },
-    { icon: Mail, label: 'Mail', value: site.email, href: `mailto:${site.email}` },
-    { icon: MapPin, label: 'Visit', value: site.address },
-  ]
+  const handleBackToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
 
   return (
-    <footer className="relative overflow-hidden bg-[#06121a]">
-      {/* Top gradient line */}
-      <div className="h-px w-full bg-gradient-to-r from-transparent via-cyan-400/70 to-transparent" />
+    <footer className="relative overflow-hidden bg-[#2864f5] text-white">
+      {/* Background Decorations */}
+      <div className="pointer-events-none absolute -left-32 top-0 h-96 w-96 rounded-full bg-white/10 blur-[100px]" />
+      <div className="pointer-events-none absolute -right-32 bottom-0 h-96 w-96 rounded-full bg-[#13284d]/20 blur-[100px]" />
 
-      {/* Glows */}
-      <div className="pointer-events-none absolute -left-24 top-10 h-72 w-72 rounded-full bg-cyan-500/15 blur-3xl" />
-      <div className="pointer-events-none absolute -right-24 bottom-28 h-72 w-72 rounded-full bg-emerald-500/15 blur-3xl" />
+      <div className="relative mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-12">
 
-      <div className="relative mx-auto max-w-7xl px-4 pt-16 sm:px-6 lg:px-8">
-        <div className="grid items-start gap-12 lg:grid-cols-12">
-          {/* Brand + links */}
-          <div className="lg:col-span-7">
-            <Link to="/" className="inline-flex items-center gap-4">
-              
-              <span className="text-2xl font-extrabold leading-tight tracking-tight text-white">
-                {site.name}
+        {/* Top CTA Panel */}
+        <div className="relative -mt-px overflow-hidden rounded-b-3xl border-x border-b border-white/20 bg-white p-6 shadow-xl shadow-[#13284d]/10 sm:p-8 lg:p-10">
+          <div className="pointer-events-none absolute -right-10 -top-16 h-48 w-48 rounded-full bg-[#dce8ff]/70 blur-2xl" />
+
+          <div className="relative flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-start gap-4">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[#f0f4ff] text-[#2864f5]">
+                <Eye size={25} />
+              </div>
+
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#2864f5]">
+                  Your Vision Matters
+                </p>
+
+                <h2 className="mt-2 text-xl font-extrabold text-[#13284d] sm:text-2xl">
+                  Give Your Eyes the Care They Deserve
+                </h2>
+
+                <p className="mt-2 max-w-xl text-sm leading-6 text-slate-600">
+                  Connect with our clinic to discuss your eye-care needs
+                  and arrange your appointment.
+                </p>
+              </div>
+            </div>
+
+            <Link
+              to="/appointment"
+              className="group inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-[#2864f5] px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-[#2864f5]/20 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#1d4ed8]"
+            >
+              Book Appointment
+              <ArrowUpRight
+                size={17}
+                className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+              />
+            </Link>
+          </div>
+        </div>
+
+        {/* Main Footer */}
+        <div className="grid gap-12 py-14 sm:py-16 lg:grid-cols-12 lg:gap-10 lg:py-20">
+
+          {/* Brand Column */}
+          <div className="lg:col-span-5">
+            <Link
+              to="/"
+              aria-label="Dr. Sharma's Eye Care home"
+              className="group inline-flex items-center gap-3"
+            >
+              <span className="flex h-14 w-14 items-center justify-center rounded-2xl border border-white/20 bg-white text-lg font-black text-[#2864f5] shadow-lg transition-transform duration-300 group-hover:scale-105">
+                DS
+              </span>
+
+              <span>
+                <span className="block text-lg font-extrabold tracking-tight sm:text-xl">
+                  Dr. Sharma&apos;s
+                </span>
+
+                <span className="mt-1 block text-[10px] font-bold uppercase tracking-[0.19em] text-blue-100">
+                  Eye Care &amp; Lasik Centre
+                </span>
               </span>
             </Link>
 
-            <p className="mt-5 max-w-md text-base leading-relaxed text-slate-400">
-              Making your vision clear for over 24 years.
+            <p className="mt-6 max-w-md text-sm leading-7 text-blue-50/85">
+              Dedicated to supporting better vision through attentive
+              eye care, personalized service and modern treatment
+              solutions. Your eye health deserves thoughtful care.
             </p>
 
-            <p className="mt-10 text-[11px] font-bold uppercase tracking-[0.25em] text-cyan-300">
-              Quick Links
-            </p>
-            <div className="mt-4 flex flex-wrap gap-2.5">
-              {links.map((l) => (
-                <Link
-                  key={l.to}
-                  to={l.to}
-                  className="group inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-sm font-semibold text-slate-300 transition-all duration-300 hover:-translate-y-0.5 hover:border-transparent hover:bg-gradient-to-r hover:from-cyan-400 hover:to-emerald-400 hover:text-slate-900 hover:shadow-lg hover:shadow-cyan-500/20"
-                >
-                  {l.label}
-                  <ArrowUpRight
-                    size={14}
-                    className="text-cyan-300 transition-colors group-hover:text-slate-900"
-                  />
-                </Link>
-              ))}
+            {/* Social Links */}
+            <div className="mt-7">
+              <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.2em] text-blue-100">
+                Connect With Us
+              </p>
+
+              <div className="flex items-center gap-3">
+                {socialLinks.map(({ label, icon: Icon, href }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={label}
+                    className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/25 bg-white/10 text-white transition-all duration-300 hover:-translate-y-1 hover:border-white hover:bg-white hover:text-[#2864f5]"
+                  >
+                    <Icon size={16} />
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
 
-          {/* Prescription card */}
-          <div className="lg:col-span-5">
-            <div className="relative rounded-3xl border-2 border-dashed border-white/15 bg-white/[0.04] p-6 shadow-2xl shadow-black/30 backdrop-blur sm:p-8">
-              {/* Perforation notches (match footer bg) */}
-              <span className="absolute -left-3 top-1/2 h-6 w-6 -translate-y-1/2 rounded-full border-2 border-dashed border-white/15 bg-[#06121a]" />
-              <span className="absolute -right-3 top-1/2 h-6 w-6 -translate-y-1/2 rounded-full border-2 border-dashed border-white/15 bg-[#06121a]" />
+          {/* Quick Links Column */}
+          <div className="lg:col-span-3">
+            <h3 className="text-sm font-extrabold uppercase tracking-[0.16em]">
+              Quick Links
+            </h3>
 
-              <div className="flex items-center justify-between">
-                <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-cyan-300">
-                  Contact
-                </p>
-                <span className="rounded-lg bg-gradient-to-br from-cyan-400 to-emerald-400 px-2.5 py-1 font-serif text-lg font-black italic leading-none text-slate-900">
-                  Rx
+            <div className="mt-3 h-1 w-10 rounded-full bg-white/80" />
+
+            <nav
+              aria-label="Footer quick links"
+              className="mt-6 grid grid-cols-2 gap-x-4 gap-y-4"
+            >
+              {navLinks.map((link) => (
+                <Link
+                  key={link.to}
+                  to={link.to}
+                  className="group inline-flex items-center gap-1.5 text-sm text-blue-50/85 transition-colors duration-200 hover:text-white"
+                >
+                  <ArrowUpRight
+                    size={14}
+                    className="shrink-0 opacity-70 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100"
+                  />
+                  {link.label}
+                </Link>
+              ))}
+            </nav>
+          </div>
+
+          {/* Contact Column */}
+          <div className="lg:col-span-4">
+            <h3 className="text-sm font-extrabold uppercase tracking-[0.16em]">
+              Contact Our Clinic
+            </h3>
+
+            <div className="mt-3 h-1 w-10 rounded-full bg-white/80" />
+
+            <div className="mt-6 space-y-5">
+
+              {/* Phone */}
+              <a
+                href={`tel:${site.phone}`}
+                className="group flex items-start gap-3"
+              >
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/20 bg-white/10 transition-colors group-hover:bg-white group-hover:text-[#2864f5]">
+                  <Phone size={17} />
+                </span>
+
+                <span className="min-w-0 pt-0.5">
+                  <span className="block text-[10px] font-bold uppercase tracking-wider text-blue-100">
+                    Call Us
+                  </span>
+                  <span className="mt-1 block break-words text-sm font-semibold text-white">
+                    {site.phone}
+                  </span>
+                </span>
+              </a>
+
+              {/* Email */}
+              <a
+                href={`mailto:${site.email}`}
+                className="group flex items-start gap-3"
+              >
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/20 bg-white/10 transition-colors group-hover:bg-white group-hover:text-[#2864f5]">
+                  <Mail size={17} />
+                </span>
+
+                <span className="min-w-0 pt-0.5">
+                  <span className="block text-[10px] font-bold uppercase tracking-wider text-blue-100">
+                    Email Us
+                  </span>
+                  <span className="mt-1 block break-all text-sm font-semibold text-white">
+                    {site.email}
+                  </span>
+                </span>
+              </a>
+
+              {/* Address */}
+              <div className="flex items-start gap-3">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-white/20 bg-white/10">
+                  <MapPin size={17} />
+                </span>
+
+                <span className="min-w-0 pt-0.5">
+                  <span className="block text-[10px] font-bold uppercase tracking-wider text-blue-100">
+                    Visit Our Clinic
+                  </span>
+                  <span className="mt-1 block text-sm leading-6 text-white/95">
+                    {site.address}
+                  </span>
                 </span>
               </div>
 
-              <div className="mt-5 divide-y divide-dashed divide-white/15">
-                {contacts.map(({ icon: Icon, label, value, href }) => {
-                  const Tag = href ? 'a' : 'div'
-                  return (
-                    <Tag
-                      key={label}
-                      {...(href ? { href } : {})}
-                      className="group flex items-center gap-4 py-4 first:pt-0 last:pb-0"
-                    >
-                      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-cyan-400/10 text-cyan-300 transition-all duration-300 group-hover:bg-gradient-to-br group-hover:from-cyan-400 group-hover:to-emerald-400 group-hover:text-slate-900">
-                        <Icon size={17} />
-                      </span>
-                      <span className="min-w-0">
-                        <span className="block font-mono text-[10px] uppercase tracking-[0.2em] text-slate-500">
-                          {label}
-                        </span>
-                        <span className="block text-sm font-semibold text-slate-200 transition-colors group-hover:text-cyan-300">
-                          {value}
-                        </span>
-                      </span>
-                    </Tag>
-                  )
-                })}
+              {/* Appointment Reminder */}
+              <div className="flex items-center gap-3 border-t border-white/20 pt-5">
+                <Clock3 size={17} className="shrink-0 text-blue-100" />
+                <p className="text-xs leading-5 text-blue-50/85">
+                  Contact our team for appointment and clinic information.
+                </p>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Giant outlined wordmark */}
+        {/* Large Brand Wordmark */}
         <div
           aria-hidden="true"
-          className="pointer-events-none mt-14 select-none overflow-hidden text-center [mask-image:linear-gradient(to_bottom,black_35%,transparent)]"
+          className="pointer-events-none relative select-none overflow-hidden border-t border-white/20 pt-8 sm:pt-10"
         >
-          <span className="block whitespace-nowrap text-[18vw] font-black leading-[0.9] tracking-tighter text-transparent [-webkit-text-stroke:2px_rgba(34,211,238,0.25)] lg:text-[11rem]">
-            Dr. Sharma's
+          <span className="block whitespace-nowrap text-center text-[17vw] font-black leading-[0.9] tracking-[-0.075em] text-white/[0.12] sm:text-[15vw] lg:text-[12rem]">
+            Dr. Sharma&apos;s
           </span>
         </div>
       </div>
 
-      {/* Bottom bar */}
-      <div className="relative border-t border-white/[0.08] bg-black/20">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 py-5 text-xs text-slate-500 sm:flex-row sm:px-6 lg:px-8">
-          <p>
+      {/* Copyright Bar */}
+      <div className="relative z-10 mt-2 border-t border-white/10 bg-[#13284d]">
+        <div className="mx-auto flex max-w-[1440px] flex-col items-center justify-between gap-4 px-5 py-5 text-center sm:flex-row sm:px-8 sm:text-left lg:px-12">
+          <p className="text-xs leading-5 text-blue-100/75">
             © {new Date().getFullYear()} {site.name}. All rights reserved.
           </p>
+
           <button
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            aria-label="Back to top"
-            className="group inline-flex items-center gap-2 font-semibold text-slate-300 transition-colors hover:text-cyan-300"
+            type="button"
+            onClick={handleBackToTop}
+            className="group inline-flex items-center gap-3 text-xs font-bold text-white/80 transition-colors hover:text-white"
           >
             Back to top
-            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-cyan-400 to-emerald-400 text-slate-900 transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-lg group-hover:shadow-cyan-500/30">
-              <ArrowUp size={16} strokeWidth={2.5} />
+
+            <span className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-white/10 transition-all duration-300 group-hover:-translate-y-1 group-hover:bg-white group-hover:text-[#2864f5]">
+              <ArrowUp size={16} />
             </span>
           </button>
         </div>
       </div>
     </footer>
-  )
+  );
 }
